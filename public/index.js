@@ -19,23 +19,12 @@ const listar = (lista) => {
     listadoSection.innerHTML = html.join(' ')
 }
 
-const addProduct= (evt) => {
-    const nombre = document.querySelector('#title').value
-    const precio = document.querySelector('#price').value
-
-    const producto = {nombre, precio}
-    server.emit('producto-nuevo', producto, (id)=>{
-        console.log(id)
-    })
-    return false
-}
-
 const chat = (mensajeCompleto) => {
     let chatSection = document.getElementById('chat')
     let html = mensajeCompleto.map(msg => {
         return (`<li>
-            <strong>Mail: ${msg.ma}</strong>
-            <em>Mensaje: ${msg.me}</em>
+            <strong>Mail: ${msg.mail}</strong>
+            <em>Mensaje: ${msg.mensaje}</em>
         </li>`)
     })
     chatSection.innerHTML = html.join(' ')

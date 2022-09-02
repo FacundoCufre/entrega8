@@ -1,21 +1,18 @@
 const fs = require('fs')
+const {optionssql} = require('./sqlite3/conexionsql3')
+const knex = require('knex')(optionssql)
 
 class Mensajes{
     constructor(ruta){
         this.ruta = ruta
     }
 
-    async save(msg){
+    async save(obj){
         try{
-            let data = await fs.promises.readFile(this.ruta, 'utf8')
-            let dataParse = JSON.parse(data)
-            if(dataParse.length){
-                await fs.promises.writeFile(this.ruta, JSON.stringify( [...dataParse, {...msg}] , null, 2) )
-            }
-            else{
-                await fs.promises.writeFile(this.ruta, JSON.stringify( [{...msg}], null, 2) )
-            }
-            
+            await knex(this.ruta).insert({
+                mail: obj.mail,
+                mensaje: obj.mensaje
+            })
         }
         catch(error){
             console.log(error)

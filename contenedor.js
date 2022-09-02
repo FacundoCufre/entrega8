@@ -1,4 +1,6 @@
 const fs = require('fs')
+const {options} = require('./mariaDB/conexionMDB')
+const knex = require('knex')(options)
 
 class Contenedor{
     constructor(ruta){
